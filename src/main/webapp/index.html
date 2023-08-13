@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>WIFI SEARCH MAIN PAGE</title>
+</head>
+
+	<script>
+        function success({ coords, timestamp }) {
+            const latitude = coords.latitude;   // 위도
+            const longitude = coords.longitude; // 경도
+            
+            alert(`위도: ${latitude}, 경도: ${longitude}, 위치 반환 시간: ${timestamp}`);
+            let myLAT = document.getElementById("LAT");
+        	myLAT.value = latitude;
+        	let myLNT = document.getElementById("LNT");
+        	myLNT.value = longitude;
+        }
+
+        function getUserLocation() {
+            if (!navigator.geolocation) {
+                throw "위치 정보가 지원되지 않습니다.";
+            }
+            navigator.geolocation.getCurrentPosition(success);
+        }
+        
+        function move() {
+			let LAT = document.getElementById("LAT").value;
+			let LNT = document.getElementById("LNT").value;
+			location.href ="location-list-wifi.jsp?LAT="+ LAT +"&LNT="+ LNT; 
+		}	
+
+    </script>
+<body>
+	<h1>와이파이 정보 구하기 </h1>
+	<div>
+		<a href="index.html">
+			<button>Home</button>
+		</a>
+		<a href="history.jsp">
+			<button>Location History</button>
+		</a>
+		<a href="load-wifi.jsp">
+			<button>Open API 와이파이 정보 가져오기 </button>
+		</a>
+	</div>
+	<div>
+		<label for="fname">LAT:</label>
+		<input type="text" id="LAT" name="LAT" value="0.0">
+		<label for="fname">LNT:</label>
+		<input type="text" id="LNT" name="LNT" value="0.0">
+		
+		<button onclick="getUserLocation()">내 위치 가져오기 </button>
+		
+		<button onclick="move()">근처 WIFI 정보 보기 </button>
+	</div>
+
+</body>
+
+</html>
